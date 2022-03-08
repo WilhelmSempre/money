@@ -5,6 +5,10 @@ use WilhelmSempre\Money\Currency;
 
 class CurrencyTest extends TestCase
 {
+
+    /**
+     * @return array
+     */
     public function validNoSignValues(): array
     {
         return [
@@ -15,6 +19,12 @@ class CurrencyTest extends TestCase
 
     /**
      * @dataProvider validNoSignValues
+     *
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $currencySignResult
+     *
+     * @return void
      */
     public function testCurrencyNoSign(string $currencyName, ?string $currencySign, string $currencySignResult)
     {

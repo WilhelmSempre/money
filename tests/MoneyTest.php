@@ -7,6 +7,10 @@ use WilhelmSempre\Money\Money;
 
 final class MoneyTest extends TestCase
 {
+
+    /**
+     * @return array
+     */
     public function validMoneyAddValues(): array
     {
         return [
@@ -21,6 +25,12 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyAddValues
+     *
+     * @param float $value
+     * @param float $addValue
+     * @param float $addResult
+     *
+     * @return void
      */
     public function testMoneyAdd(float $value, float $addValue, float $addResult)
     {
@@ -31,6 +41,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($addResult, $money->getValue());
     }
 
+    /**
+     * @return array
+     */
     public function validMoneySubtractValues(): array
     {
         return [
@@ -45,6 +58,12 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneySubtractValues
+     *
+     * @param float $value
+     * @param float $subtractValue
+     * @param float $subtractResult
+     *
+     * @return void
      */
     public function testMoneySubtract(float $value, float $subtractValue, float $subtractResult)
     {
@@ -55,6 +74,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($subtractResult, $money->getValue());
     }
 
+    /**
+     * @return array
+     */
     public function validMoneyMultiplyValues(): array
     {
         return [
@@ -69,6 +91,12 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyMultiplyValues
+     *
+     * @param float $value
+     * @param float $multiplyValue
+     * @param float $multiplyResult
+     *
+     * @return void
      */
     public function testMoneyMultiply(float $value, float $multiplyValue, float $multiplyResult)
     {
@@ -79,6 +107,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($multiplyResult, $money->getValue());
     }
 
+    /**
+     * @return array
+     */
     public function validMoneyDivideValues(): array
     {
         return [
@@ -93,6 +124,12 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyDivideValues
+     *
+     * @param float $value
+     * @param float $divideValue
+     * @param float $divideResult
+     *
+     * @return void
      */
     public function testMoneyDivide(float $value, float $divideValue, float $divideResult)
     {
@@ -103,6 +140,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($divideResult, $money->getValue());
     }
 
+    /**
+     * @return array[]
+     */
     public function validMoneyWithZerosWithRightCurrencyFormat(): array
     {
         return [
@@ -117,6 +157,13 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyWithZerosWithRightCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
      */
     public function testMoneyWithZerosWithRightCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
     {
@@ -126,6 +173,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($formattedMoney, $money->getFormattedValue());
     }
 
+    /**
+     * @return array[]
+     */
     public function validMoneyWithoutZerosWithRightCurrencyFormat(): array
     {
         return [
@@ -140,6 +190,13 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyWithoutZerosWithRightCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
      */
     public function testMoneyWithoutZerosWithRightCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
     {
@@ -149,6 +206,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($formattedMoney, $money->getFormattedValue());
     }
 
+    /**
+     * @return array[]
+     */
     public function validMoneyWithZerosWithLeftCurrencyFormat(): array
     {
         return [
@@ -162,6 +222,13 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyWithZerosWithLeftCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
      */
     public function testMoneyWithZerosWithLeftCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
     {
@@ -171,6 +238,9 @@ final class MoneyTest extends TestCase
         $this->assertEquals($formattedMoney, $money->getFormattedValue());
     }
 
+    /**
+     * @return array[]
+     */
     public function validMoneyWithoutZerosWithLeftCurrencyFormat(): array
     {
         return [
@@ -184,6 +254,13 @@ final class MoneyTest extends TestCase
 
     /**
      * @dataProvider validMoneyWithoutZerosWithLeftCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
      */
     public function testMoneyWithoutZerosWithLeftCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
     {
