@@ -1,0 +1,21 @@
+{
+    "name": "wilhelmsempre/money",
+    "description": "Money class provides price manipulation. We can manage prices easly.",
+    "type": "library",
+    "license": "OpenSource",
+    "autoload": {
+        "psr-4": {
+            "WilhelmSempre\\Money\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rafał Głuszak",
+            "email": "rafal.gluszak@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^1.4",
+        "phpunit/phpunit": "^9.5"
+    }
+}
