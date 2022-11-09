@@ -58,13 +58,7 @@ class Discount
     {
         $percent = new Percent($this->value);
         $value = $this->money->getValue();
-
-        return $this->money->multiply(
-            $percent->getValue()
-        )
-            ->subtract($value)
-            ->multiply(-1)
-        ;
+        return $this->money->subtract($value * $percent->getValue());
     }
 
     /**

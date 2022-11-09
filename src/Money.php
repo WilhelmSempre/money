@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace WilhelmSempre\Money;
 
+use WilhelmSempre\Money\Exception\DivisionByZeroException;
+
 class Money
 {
     public const CURRENCY_POSITION_LEFT = 'left';
@@ -61,6 +63,11 @@ class Money
     public function subtract(float $value): self
     {
         $this->value -= $value;
+
+        if ($this->value < 0) {
+            $this->value = 0;
+        }
+
         return $this;
     }
 
@@ -79,9 +86,14 @@ class Money
      * @param float $value
      *
      * @return $this
+     * @throws DivisionByZeroException
      */
     public function divide(float $value): self
     {
+        if ($value === 0) {
+            throw new DivisionByZeroException('No division by 0!');
+        }
+
         $this->value /= $value;
         return $this;
     }
