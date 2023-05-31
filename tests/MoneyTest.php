@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 use PHPUnit\Framework\TestCase;
 use WilhelmSempre\Money\Currency;
+use WilhelmSempre\Money\Exception\DivisionByZeroException;
 use WilhelmSempre\Money\Money;
 
 final class MoneyTest extends TestCase
@@ -130,6 +131,7 @@ final class MoneyTest extends TestCase
      * @param float $divideResult
      *
      * @return void
+     * @throws DivisionByZeroException
      */
     public function testMoneyDivide(float $value, float $divideValue, float $divideResult)
     {
@@ -266,6 +268,71 @@ final class MoneyTest extends TestCase
     {
         $currency = new Currency($currencyName, $currencySign);
         $money = new Money($value, $currency, [Money::REMOVE_LEADING_ZEROS => true, Money::CURRENCY_POSITION => Money::CURRENCY_POSITION_LEFT]);
+
+        $this->assertEquals($formattedMoney, $money->getFormattedValue());
+    }
+
+    /**
+     * @return array[]
+     */
+    public function validMoneyWithZerosWithLeftNoSpaceCurrencyFormat(): array
+    {
+        return [
+            [20, 'USD', '$', '$20.00'],
+            [40, 'USD', '$', '$40.00'],
+            [120, 'PLN', '', 'PLN120.00'],
+            [250, 'PLN', 'PLN', 'PLN250.00'],
+            [250, 'PLN', null, 'PLN250.00'],
+        ];
+    }
+
+    /**
+     * @dataProvider validMoneyWithZerosWithLeftNoSpaceCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
+     */
+    public function testMoneyWithZerosWithLeftNoSpaceCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
+    {
+        $currency = new Currency($currencyName, $currencySign);
+        $money = new Money($value, $currency, [Money::CURRENCY_POSITION => Money::CURRENCY_POSITION_LEFT_WITHOUT_SPACE]);
+
+        $this->assertEquals($formattedMoney, $money->getFormattedValue());
+    }
+
+    /**
+     * @return array[]
+     */
+    public function validMoneyWithZerosWithRightNoSpaceCurrencyFormat(): array
+    {
+        return [
+            [20, 'USD', '$', '20.00$'],
+            [40, 'USD', '$', '40.00$'],
+            [120, 'PLN', 'zł', '120.00zł'],
+            [120, 'PLN', '', '120.00PLN'],
+            [250, 'PLN', 'PLN', '250.00PLN'],
+            [250, 'PLN', null, '250.00PLN'],
+        ];
+    }
+
+    /**
+     * @dataProvider validMoneyWithZerosWithRightNoSpaceCurrencyFormat
+     *
+     * @param float $value
+     * @param string $currencyName
+     * @param string|null $currencySign
+     * @param string $formattedMoney
+     *
+     * @return void
+     */
+    public function testMoneyWithZerosWithRightNoSpaceCurrencyFormat(float $value, string $currencyName, ?string $currencySign, string $formattedMoney)
+    {
+        $currency = new Currency($currencyName, $currencySign);
+        $money = new Money($value, $currency, [Money::CURRENCY_POSITION => Money::CURRENCY_POSITION_RIGHT_WITHOUT_SPACE]);
 
         $this->assertEquals($formattedMoney, $money->getFormattedValue());
     }

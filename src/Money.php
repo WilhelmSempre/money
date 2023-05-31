@@ -9,6 +9,8 @@ class Money
 {
     public const CURRENCY_POSITION_LEFT = 'left';
     public const CURRENCY_POSITION_RIGHT = 'right';
+    public const CURRENCY_POSITION_LEFT_WITHOUT_SPACE = 'left_no_space';
+    public const CURRENCY_POSITION_RIGHT_WITHOUT_SPACE = 'right_no_space';
     public const REMOVE_LEADING_ZEROS = 'remove_leading_zeros';
     public const DECIMALS = 'decimals';
     public const CURRENCY_POSITION = 'currency_position';
@@ -122,6 +124,10 @@ class Money
                 return $this->currency->getCurrencySign() . ' ' . $money;
             case self::CURRENCY_POSITION_RIGHT:
                 return $money . ' ' . $this->currency->getCurrencySign();
+            case self::CURRENCY_POSITION_LEFT_WITHOUT_SPACE:
+                return $this->currency->getCurrencySign() . $money;
+            case self::CURRENCY_POSITION_RIGHT_WITHOUT_SPACE:
+                return $money . $this->currency->getCurrencySign();
         }
 
         return $money . ' ' . $this->currency->getCurrencySign();

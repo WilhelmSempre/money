@@ -11,7 +11,7 @@ class Percent
      */
     public function __construct(float $value)
     {
-        $this->value = $value / 100;
+        $this->value = $value;
     }
 
     /**
@@ -19,6 +19,11 @@ class Percent
      */
     public function getValue(): float
     {
-        return $this->value;
+        return $this->value / 100;
+    }
+
+    public function getFormattedValue(): string
+    {
+        return $this->value . '%';
     }
 }

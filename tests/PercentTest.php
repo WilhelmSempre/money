@@ -31,4 +31,31 @@ class PercentTest extends TestCase
         $percent = new Percent($percent);
         $this->assertEquals($expectedPercentValue, $percent->getValue());
     }
+
+    /**
+     * @return array[]
+     */
+    public function validPercentFormattedValues(): array
+    {
+        return [
+            [5, '5%'],
+            [20, '20%'],
+            [40, '40%'],
+            [25.5, '25.5%'],
+        ];
+    }
+
+    /**
+     * @dataProvider validPercentFormattedValues
+     *
+     * @param float $percent
+     * @param string $expectedPercentValue
+     *
+     * @return void
+     */
+    public function testPercentFormattedValue(float $percent, string $expectedPercentValue)
+    {
+        $percent = new Percent($percent);
+        $this->assertEquals($expectedPercentValue, $percent->getFormattedValue());
+    }
 }
